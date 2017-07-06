@@ -1,10 +1,8 @@
  # mobileSelect.js
 
-[![MIT License](https://img.shields.io/npm/l/express.svg)](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE) [![downloads](https://img.shields.io/badge/downloads-1083-green.svg)]()  [![dependencies](https://img.shields.io/badge/dependencies-none-orange.svg)]() 
-
 一款多功能的移动端滚动选择器，支持单选到多选、支持多级级联、提供自定义回调函数、提供update函数二次渲染、重定位函数、兼容pc端拖拽等等..    
 
- [【English documents】](https://github.com/onlyhom/mobileSelect.js) 
+具体的例子看 mobileSelect.html
 
 ## 特性
 
@@ -208,21 +206,10 @@ var mySelect = new MobileSelect({
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
 
-
-## 更新日志  
-### 2017-04-20[修正]    
+### [修正]    
 鉴于input框在iphone上会出现光标      
 以及由input触发的fixed布局在iphone6P/iphone7P的chrome中打开会出现下移现象     
 舍弃使用input标签,改为由普通div触发    
 选择到的值写进div的innerHTML里             
 推荐用callback(indexArr, data)回调函数获取选择到的值         
-
-
-## 许可证
-
-[MIT LICENSE](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE)
-
-Copyright (c) 2017-present, LIHONG OU(onlyhom)
-
-
 
