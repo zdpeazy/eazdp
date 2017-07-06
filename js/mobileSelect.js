@@ -1,9 +1,3 @@
-/*!
- * mobileSelect.js
- * (c) 2017-present onlyhom
- * Released under the MIT License.
- */
-
 window.MobileSelect = (function() {
 
 	function getClass(dom,string) {
@@ -38,8 +32,6 @@ window.MobileSelect = (function() {
 		init: function(config){
 			var _this = this; 
 
-			/*_this.trigger = document.getElementsByClassName(config.trigger);
-			console.log(_this.trigger);*/
 			_this.wheel = getClass(_this.mobileSelect,'wheel');   //wheel 数组
 			_this.slider = getClass(_this.mobileSelect,'selectContainer'); // slider 数组
 			_this.wheels = _this.mobileSelect.querySelector('.wheels');   //wheels
@@ -53,9 +45,6 @@ window.MobileSelect = (function() {
 			_this.initPosition = config.position ? config.position : [];
 			_this.titleText = config.title ? config.title : '';
 
-			/*for (var i = 0 ; i < _this.trigger.length; i++) {
-				_this.trigger[i].style.cursor='pointer';
-			}*/
 			_this.setTitle(_this.titleText);
 			_this.checkCascade();
 
@@ -84,20 +73,10 @@ window.MobileSelect = (function() {
 		    for(var i=0; i<_this.wheel.length; i++){
 		    	i==_this.wheel.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+' ';
 		    }
-		    // console.log(tempValue)
-		    // _this.trigger.innerHTML = tempValue;
-		    // console.log(_this.getIndexArr());
-		    // console.log(_this.getJson());
 		    _this.callback(_this.getIndexArr(),_this.getJson());
 		  });
+
 		  //点击调用按钮
-		  /*for (var i = 0 ; i < _this.trigger.length; i++) {
-				_this.trigger[i].addEventListener('click',function(){
-					console.log(i);
-		    	_this.mobileSelect.classList.add('mobileSelect-show');
-		    });
-			}*/
-	    
 	    _this.grayLayer.addEventListener('click',function(){
 	    	_this.mobileSelect.classList.remove('mobileSelect-show');
 	    });
@@ -427,6 +406,7 @@ window.MobileSelect = (function() {
 	    getValue: function(sliderIndex){
 	    	var _this = this;
 	    	var index = _this.getIndex(_this.curDistance[sliderIndex]);
+	    	// console.log(index);
 	    	return _this.slider[sliderIndex].getElementsByTagName('li')[index].innerHTML;
 	    },
 
@@ -437,14 +417,14 @@ window.MobileSelect = (function() {
 	    		case "touchstart":
 			        _this.startY = event.touches[0].clientY;
 			        _this.oldMoveY = _this.startY;
-	    			break;
+	    				break;
 
 	    		case "touchend":
 
 			        _this.moveEndY = event.changedTouches[0].clientY;
 			        _this.offsetSum = _this.moveEndY - _this.startY;
 
-					//修正位置
+							//修正位置
 			        _this.updateCurDistance(theSlider, index);
 			        _this.curDistance[index] = _this.fixPosition(_this.curDistance[index]);
 			        _this.movePosition(theSlider, _this.curDistance[index]);
@@ -474,7 +454,7 @@ window.MobileSelect = (function() {
 			        	_this.checkRange(index, tempPosArr);
 			        }
 
-	    			break;
+	    				break;
 
 	    		case "touchmove":
 			        event.preventDefault();
@@ -485,7 +465,7 @@ window.MobileSelect = (function() {
 			        _this.curDistance[index] = _this.curDistance[index] + _this.offset;
 			        _this.movePosition(theSlider, _this.curDistance[index]);
 			        _this.oldMoveY = _this.moveY;
-	    			break;
+	    				break;
 	    	}
 	    },
 

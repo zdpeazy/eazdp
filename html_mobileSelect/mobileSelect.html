@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1,user-scalable=no">
     <meta name="keywords" content="">  
     <meta name="description" content="">
-
-    <link rel="stylesheet" type="text/css" href="css/mobileSelect.css">
-    <script src="js/mobileSelect.js" type="text/javascript"></script>
-    <script src="js/jquery.min.js" type="text/javascript"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/mobileSelect.css">
+    <script type="text/javascript" src="../js/mobileSelect.js" ></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
 </head>
 <body>
-
 
 <div class="contain">
     <div class="fixWidth">
@@ -23,28 +23,67 @@
             <h1>mobileSelect Demo</h1>
         </div>
         <div class="demo">
-            <div id="trigger1" class="trigger">单项选择</div>
-            <div id="trigger1" class="trigger">单项选择</div>
-            <div id="trigger2" class="trigger2">双项选择</div>
-            <div id="trigger3">多项选择</div>
-            <div id="trigger4">地区选择-级联</div>
-            <div id="trigger5">车型选择-级联</div>
+            <div class="trigger1">单项选择</div>
+            <div class="trigger1">单项选择</div>
+            <div class="trigger1">单项选择</div>
+
+            <div class="trigger2">双项选择</div>
+            <div class="trigger3">多项选择</div>
+            <div class="trigger4">地区选择-级联</div>
+            <div class="trigger5">车型选择-级联</div>
+
+            <p class="info-wrapper">数据展示</p>
         </div>
     </div>
-
 </div>
-
-
-
 <script type="text/javascript">
+// mobileSelect使用方法
 
-
-var weekdayArr=['周日','周一','周二','周三','周四','周五','周六'];
+//创建联动的数据
+var weekdayArr = ['周日','周一','周二','周三','周四','周五','周六'];
 var timeArr = ['08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00'];
-var numArr=['1','2','3','4','5'];
-
-var UplinkData =
-[
+var numArr = ['1','2','3','4','5'];
+var areaArr = [
+            {
+                id:'1',
+                value:'附近',
+                childs:[
+                    {id:'1',value:'1000米'},
+                    {id:'2',value:'2000米'},
+                    {id:'3',value:'3000米'},
+                    {id:'4',value:'5000米'},
+                    {id:'5',value:'10000米'}
+                ]
+            },
+            {
+                id:'2',
+                value:'朝阳区',
+                childs:[
+                    {id:'1',value:'青年路'},
+                    {id:'2',value:'望京'},
+                    {id:'3',value:'百子湾'},
+                    {id:'4',value:'国贸'},
+                    {id:'5',value:'大望路'},
+                    {id:'6',value:'朝阳公园'}
+                ]
+            },
+            {id:'3',value:'下城区'},
+            {id:'4',value:'江干区'},
+            {id:'5',value:'拱墅区'},
+            {
+                id:'6',
+                value:'海淀区',
+                childs:[
+                    {id:'1',value:'苏州街'},
+                    {id:'2',value:'海淀黄庄'},
+                    {id:'3',value:'中关村'},
+                    {id:'4',value:'航天大厦'},
+                    {id:'5',value:'立水桥'},
+                    {id:'6',value:'天通苑'}
+                ]
+            },
+        ];
+var UplinkData = [
     {id:'1',value:'兰博基尼'},
     {
         id:'2',
@@ -194,32 +233,10 @@ var UplinkData =
     }
 ];
 
+//实例化mobileSelect组件
 
-//----------------------------------------------------------
-
-//只有trigger 和 wheels 是必要参数  其他都是选填参数
-/*var ttt = document.getElementsByClassName('trigger');
-var mobileSelect1 = new MobileSelect({
-    trigger: 'trigger', 
-    title: '单项选择',  
-    wheels: [
-                {data: weekdayArr}
-            ],
-    position:[2], //初始化定位 打开时默认选中的哪个  如果不填默认为0
-    callback:function(indexArr, data){
-        console.log(indexArr)
-    }
-});
-var mobileSelect2 = new MobileSelect({
-    trigger: 'trigger2',
-    title: '双项选择',
-    wheels: [
-                {data: weekdayArr},
-                {data: timeArr}
-            ],
-    position:[1, 2],
-});*/
-$('.trigger').click(function(){
+// 两个或者多个单项的按钮
+$('.trigger1').click(function(){
     mobileSelect = new MobileSelect({
         title: '单项选择',  
         wheels: [
@@ -227,79 +244,85 @@ $('.trigger').click(function(){
                 ],
         position:[2], //初始化定位 打开时默认选中的哪个  如果不填默认为0
         callback:function(indexArr, data){
-            console.log(indexArr)
+            // indexArr 是数据的索引
+            // data 是数据的具体内容
+            var text = '数据下标 -- ' + indexArr + '<br />' + '数据内容 -- ' + data;
+            $('.info-wrapper').html(text);
         }
     })
     mobileSelect.mobileSelect.classList.add('mobileSelect-show');
 })
-/*
 
+// 多项选择
+$('.trigger2').click(function(){
+    mobileSelect = new MobileSelect({
+        title: '双项选择',  
+        wheels: [
+                    {data: weekdayArr},
+                    {data: timeArr},
+                ],
+        position:[0, 0],
+        callback:function(indexArr, data){
+            var text = '数据下标 -- ' + indexArr + '<br />' + '数据内容 -- ' + data;
+            $('.info-wrapper').html(text);
+        }
+    })
+    mobileSelect.mobileSelect.classList.add('mobileSelect-show');
+})
 
-var mobileSelect3 = new MobileSelect({
-    trigger: '#trigger3',
-    title: '多项选择',
-    wheels: [
-                {data: numArr},
-                {data: numArr},
-                {data: numArr},
-                {data: numArr},
-                {data: numArr}
-            ],
-    position:[0, 1, 0, 1, 0], 
-    transitionEnd:function(indexArr, data){ 
-    },
-    callback:function(indexArr, data){
-    }
-});
+// 多项选择
+$('.trigger3').click(function(){
+    mobileSelect = new MobileSelect({
+        title: '多项选择',  
+        wheels: [
+                    {data: numArr},
+                    {data: numArr},
+                    {data: numArr},
+                    {data: numArr},
+                    {data: numArr}
+                ],
+        position:[0, 1, 0, 1, 0],
+        callback:function(indexArr, data){
+            var text = '数据下标 -- ' + indexArr + '<br />' + '数据内容 -- ' + data;
+            $('.info-wrapper').html(text);
+        }
+    })
+    mobileSelect.mobileSelect.classList.add('mobileSelect-show');
+})
 
+//地区联动
+$('.trigger4').click(function(){
+    mobileSelect = new MobileSelect({
+        title: '地区选择',  
+        wheels: [
+                    {data : areaArr}
+                ],
+        callback:function(indexArr, data){
+            // console.log(data);
+            var text = '数据下标 -- ' + indexArr + '<br />' + '数据内容 -- ' + data;
+            $('.info-wrapper').html(text);
+        }
+    })
+    mobileSelect.mobileSelect.classList.add('mobileSelect-show');
+})
 
-var mobileSelect4 = new MobileSelect({
-    trigger: '#trigger4',
-    title: '地区选择',
-    wheels: [
-                {data:[
-                    {
-                        id:'1',
-                        value:'附近',
-                        childs:[
-                            {id:'1',value:'1000米'},
-                            {id:'2',value:'2000米'},
-                            {id:'3',value:'3000米'},
-                            {id:'4',value:'5000米'},
-                            {id:'5',value:'10000米'}
-                        ]
-                    },
-                    {id:'2',value:'上城区'},
-                    {id:'3',value:'下城区'},
-                    {id:'4',value:'江干区'},
-                    {id:'5',value:'拱墅区'},
-                    {id:'6',value:'西湖区'}
-                ]}
-            ],  
-    transitionEnd:function(indexArr, data){
-        console.log(data);
-    },
-    callback:function(indexArr, data){
-        console.log(data);
-    }  
-});
-
-
-var mobileSelect5 = new MobileSelect({
-    trigger: '#trigger5',
-    title: '车型选择',
-    wheels: [
-                {data : UplinkData}
-            ],
-    transitionEnd:function(indexArr, data){
-        console.log(data);
-    },
-    callback:function(indexArr, data){
-        console.log(data);
-    } 
-});*/
-
-
+// 车型联动
+$('.trigger5').click(function(){
+    var mobileSelect = new MobileSelect({
+        trigger: '#trigger5',
+        title: '车型选择',
+        wheels: [
+                    {data : UplinkData}
+                ],
+        transitionEnd:function(indexArr, data){
+            // console.log(data);
+        },
+        callback:function(indexArr, data){
+            // console.log(data);
+        } 
+    });
+    mobileSelect.mobileSelect.classList.add('mobileSelect-show');
+})
 </script>
 
 
