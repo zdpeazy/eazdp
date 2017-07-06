@@ -35,17 +35,24 @@
 
 #### ①普通数组格式-非联动
 ```html
-<div id="day"></div>
-
 <script type="text/javascript">
-var mobileSelect1 = new MobileSelect({
-    trigger: '#day', 
-    title: '单项选择',  
-    wheels: [
-                {data:['周日','周一','周二','周三','周四','周五','周六']}
-            ],
-    position:[2] //初始化定位
-});
+var weekdayArr = ['周日','周一','周二','周三','周四','周五','周六'];
+$('.trigger1').click(function(){
+    mobileSelect = new MobileSelect({
+        title: '单项选择',  
+        wheels: [
+                    {data: weekdayArr}
+                ],
+        position:[2], //初始化定位 打开时默认选中的哪个  如果不填默认为0
+        callback:function(indexArr, data){
+            // indexArr 是数据的索引
+            // data 是数据的具体内容
+            var text = '数据下标 -- ' + indexArr + '<br />' + '数据内容 -- ' + data;
+            $('.info-wrapper').html(text);
+        }
+    })
+    mobileSelect.mobileSelect.classList.add('mobileSelect-show');
+})
 </script>
 ```
 
@@ -56,30 +63,33 @@ var mobileSelect1 = new MobileSelect({
 <div id="area"></div>
 
 <script type="text/javascript">
-var mobileSelect2 = new MobileSelect({
-    trigger: '#area',
-    title: '地区选择',
-    wheels: [
-                {data:[
-                    {id:'1',value:'附近'},
-                    {id:'2',value:'上城区'},
-                    {id:'3',value:'下城区'},
-                    {id:'4',value:'江干区'},
-                    {id:'5',value:'拱墅区'},
-                    {id:'6',value:'西湖区'}
-                ]},
-                {data:[
-                    {id:'1',value:'1000米'},
-                    {id:'2',value:'2000米'},
-                    {id:'3',value:'3000米'},
-                    {id:'4',value:'5000米'},
-                    {id:'5',value:'10000米'}
-                ]}
-            ],
-    callback:function(indexArr, data){
-        console.log(data); //返回选中的json数据
-    } 
-});
+$('.trigger2').click(function(){
+    mobileSelect = new MobileSelect({
+        title: '双项选择',  
+        wheels: [
+                    {data:[
+                        {id:'1',value:'附近'},
+                        {id:'2',value:'上城区'},
+                        {id:'3',value:'下城区'},
+                        {id:'4',value:'江干区'},
+                        {id:'5',value:'拱墅区'},
+                        {id:'6',value:'西湖区'}
+                    ]},
+                    {data:[
+                        {id:'1',value:'1000米'},
+                        {id:'2',value:'2000米'},
+                        {id:'3',value:'3000米'},
+                        {id:'4',value:'5000米'},
+                        {id:'5',value:'10000米'}
+                    ]}
+                ],
+        callback:function(indexArr, data){
+            var text = '数据下标 -- ' + indexArr + '<br />' + '数据内容 -- ' + data;
+            $('.info-wrapper').html(text);
+        }
+    })
+    mobileSelect.mobileSelect.classList.add('mobileSelect-show');
+})
 </script>
 ```
 ##### 效果图：
@@ -91,9 +101,9 @@ var mobileSelect2 = new MobileSelect({
 <div id="area2"></div>
 
 <script type="text/javascript">
-  var addressLocation = new MobileSelect({
-      trigger: '#area2',
-      title: '地区选择-联动',
+$('.trigger4').click(function(){
+  mobileSelect = new MobileSelect({
+      title: '地区选择',  
       wheels: [
                   {data:[
                       {
@@ -116,9 +126,13 @@ var mobileSelect2 = new MobileSelect({
               ],
       position:[0,1],
       callback:function(indexArr, data){
-          console.log(data); //返回选中的json数据
-      } 
-  });
+          // console.log(data);
+          var text = '数据下标 -- ' + indexArr + '<br />' + '数据内容 -- ' + data;
+          $('.info-wrapper').html(text);
+      }
+  })
+  mobileSelect.mobileSelect.classList.add('mobileSelect-show');
+})
   </script>
 ```
 ##### 效果图：
